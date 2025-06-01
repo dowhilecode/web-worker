@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Widget - Service Worker Demo</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px;
+        }
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .worker-section, .no-worker-section {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .worker-section {
+            background-color: #e8f5e9;
+        }
+        .no-worker-section {
+            background-color: #fbe9e7;
+        }
+        .weather-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .current-weather {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .temperature {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .condition {
+            font-size: 24px;
+            color: #666;
+        }
+        .details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .detail-item {
+            text-align: center;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+        .forecast {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .forecast-day {
+            text-align: center;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+        .offline-message {
+            background-color: #ffeb3b;
+            padding: 10px;
+            text-align: center;
+            display: none;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            padding: 8px 16px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background: white;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .last-updated {
+            font-size: 0.8em;
+            color: #666;
+            text-align: right;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weather Widget - Service Worker vs Direct API</h1>
+    <p>Compare weather data loading with and without Service Worker caching</p>
+
+    <div class="comparison-container">
+        <div class="worker-section">
+            <h2>With Service Worker (Offline Capable)</h2>
+            <div id="worker-offline-message" class="offline-message">
+                You are offline. Showing last cached weather data.
+            </div>
+            <div class="weather-card">
+                <div id="worker-weather" class="current-weather">
+                    Loading...
+                </div>
+                <div id="worker-forecast" class="forecast">
+                </div>
+                <div id="worker-status" class="status">
+                    Loading time: --<br>
+                    Cache status: Not cached<br>
+                    Network status: Online
+                </div>
+                <div id="worker-last-updated" class="last-updated">
+                </div>
+            </div>
+        </div>
+
+        <div class="no-worker-section">
+            <h2>Without Service Worker (Network Dependent)</h2>
+            <div id="noworker-offline-message" class="offline-message">
+                You are offline. Weather data unavailable.
+            </div>
+            <div class="weather-card">
+                <div id="noworker-weather" class="current-weather">
+                    Loading...
+                </div>
+                <div id="noworker-forecast" class="forecast">
+                </div>
+                <div id="noworker-status" class="status">
+                    Loading time: --<br>
+                    Cache status: Browser cache only<br>
+                    Network status: Online
+                </div>
+                <div id="noworker-last-updated" class="last-updated">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="refreshWeather()">Refresh Weather</button>
+        <button onclick="toggleConnection()">Toggle Online/Offline</button>
+        <button onclick="clearAllCaches()">Clear Cache</button>
+    </div>
+
+    <script src="weather-app.js"></script>
+</body>
+</html>

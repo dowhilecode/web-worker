@@ -1,0 +1,51 @@
+{
+    "current": {
+        "temp_c": 20,
+        "condition": {
+            "text": "Offline Mode",
+            "icon": "//cdn.weatherapi.com/weather/64x64/day/116.png"
+        },
+        "wind_kph": 0,
+        "humidity": 60,
+        "feelslike_c": 20
+    },
+    "forecast": {
+        "forecastday": [
+            {
+                "date": "2025-06-01",
+                "day": {
+                    "maxtemp_c": 20,
+                    "mintemp_c": 15
+                }
+            },
+            {
+                "date": "2025-06-02",
+                "day": {
+                    "maxtemp_c": 20,
+                    "mintemp_c": 15
+                }
+            },
+            {
+                "date": "2025-06-03",
+                "day": {
+                    "maxtemp_c": 20,
+                    "mintemp_c": 15
+                }
+            },
+            {
+                "date": "2025-06-04",
+                "day": {
+                    "maxtemp_c": 20,
+                    "mintemp_c": 15
+                }
+            },
+            {
+                "date": "2025-06-05",
+                "day": {
+                    "maxtemp_c": 20,
+                    "mintemp_c": 15
+                }
+            }
+        ]
+    }
+}

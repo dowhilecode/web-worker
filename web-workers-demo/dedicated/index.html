@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dedicated Worker Demo - Image Processing</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .controls { margin: 20px 0; }
+        .result { margin-top: 20px; padding: 10px; background-color: #f0f0f0; }
+        progress { width: 100%; height: 20px; }
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .worker-section, .no-worker-section {
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .worker-section {
+            background-color: #e8f5e9;
+        }
+        .no-worker-section {
+            background-color: #fbe9e7;
+        }
+        h2 {
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Processing Simulation - With vs Without Web Worker</h1>
+    
+    <div class="comparison-container">
+        <div class="no-worker-section">
+            <h2>Without Web Worker (Blocking)</h2>
+            <div class="controls">
+                <button onclick="startProcessingNoWorker()">Start Processing</button>
+                <button onclick="performUITask('noWorker')">Test UI Responsiveness</button>
+            </div>
+            <progress id="noWorkerProgress" value="0" max="100"></progress>
+            <div id="noWorkerStatus" class="result">Ready to process...</div>
+            <div id="noWorkerCounter" class="result">UI Counter: 0</div>
+        </div>
+        <div class="worker-section">
+            <h2>With Web Worker (Non-Blocking)</h2>
+            <div class="controls">
+                <button onclick="startProcessing()">Start Processing</button>
+                <button onclick="performUITask('worker')">Test UI Responsiveness</button>
+            </div>
+            <progress id="workerProgress" value="0" max="100"></progress>
+            <div id="workerStatus" class="result">Ready to process...</div>
+            <div id="workerCounter" class="result">UI Counter: 0</div>
+        </div>
+
+        
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

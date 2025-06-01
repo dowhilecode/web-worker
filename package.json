@@ -1,0 +1,21 @@
+{
+  "name": "web-workers-demo",
+  "version": "1.0.0",
+  "description": "Comprehensive demonstration of Web Workers, Shared Workers, and Service Workers",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "web-workers",
+    "shared-workers",
+    "service-workers",
+    "javascript",
+    "demo"
+  ],
+  "author": "Manish Kumar",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Worker vs LocalStorage Chat Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .worker-section, .no-worker-section {
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .worker-section {
+            background-color: #e8f5e9;
+        }
+        .no-worker-section {
+            background-color: #fbe9e7;
+        }
+        .chat-box { 
+            height: 300px; 
+            border: 1px solid #ccc; 
+            overflow-y: auto; 
+            margin-bottom: 10px; 
+            padding: 10px;
+            background: white;
+        }
+        .input-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .input-area input {
+            flex: 1;
+            padding: 5px;
+        }
+        .message { margin: 5px 0; padding: 5px; background-color: #f0f0f0; }
+        .system { color: #666; font-style: italic; }
+        h2 { margin-top: 0; font-size: 1.2em; }
+        .stats { 
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Multi-Window Chat - Shared Worker vs LocalStorage</h1>
+    <p>Open this page in multiple windows to test both communication methods!</p>
+
+    <div class="comparison-container">
+        <div class="no-worker-section">
+            <h2>Without Shared Worker (LocalStorage-based)</h2>
+            <div id="noWorkerChatBox" class="chat-box"></div>
+            <div class="input-area">
+                <input type="text" id="noWorkerMessageInput" placeholder="Type your message...">
+                <button onclick="sendNoWorkerMessage()">Send</button>
+            </div>
+            <div id="noWorkerStats" class="stats">
+                Active Windows: --
+                <br>
+                Message Delivery Time: --
+            </div>
+            <button onclick="openNewWindow()">Open New Chat Window</button>
+        </div>
+        <div class="worker-section">
+            <h2>With Shared Worker (Real-time Communication)</h2>
+            <div id="workerChatBox" class="chat-box"></div>
+            <div class="input-area">
+                <input type="text" id="workerMessageInput" placeholder="Type your message...">
+                <button onclick="sendWorkerMessage()">Send</button>
+            </div>
+            <div id="workerStats" class="stats">
+                Connected Windows: 1
+                <br>
+                Message Delivery Time: --
+            </div>
+            <button onclick="openNewWindow()">Open New Chat Window</button>
+        </div>
+
+        
+    </div>
+
+    <script src="chat.js"></script>
+</body>
+</html>

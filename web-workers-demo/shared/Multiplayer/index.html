@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Game - Shared Worker vs LocalStorage</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px;
+        }
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .worker-section, .no-worker-section {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .worker-section {
+            background-color: #e8f5e9;
+        }
+        .no-worker-section {
+            background-color: #fbe9e7;
+        }
+        .game-area {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .problem {
+            font-size: 24px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .answer-input {
+            width: 100px;
+            padding: 5px;
+            font-size: 20px;
+            text-align: center;
+            margin: 0 auto;
+            display: block;
+        }
+        .score-board {
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        .player-list {
+            margin: 10px 0;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            padding: 8px 16px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .timer {
+            font-size: 20px;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .status {
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Multiplayer Math Game - SharedWorker vs LocalStorage</h1>
+    <p>Open multiple windows to play together! First to answer correctly gets the points.</p>
+
+    <div class="comparison-container">
+        <div class="worker-section">
+            <h2>With Shared Worker (Real-time)</h2>
+            <div class="game-area">
+                <div class="timer" id="worker-timer">Time: 60s</div>
+                <div class="problem" id="worker-problem">Loading...</div>
+                <input type="number" id="worker-answer" class="answer-input" placeholder="Your answer">
+                <div class="score-board">
+                    <h3>Players Online: <span id="worker-player-count">0</span></h3>
+                    <div id="worker-scores" class="player-list">No players yet</div>
+                </div>
+                <div class="status" id="worker-status"></div>
+            </div>
+            <div class="controls">
+                <button onclick="startWorkerGame()">New Game</button>
+                <button onclick="openNewWindow()">Open New Window</button>
+            </div>
+        </div>
+
+        <div class="no-worker-section">
+            <h2>Without Shared Worker (LocalStorage)</h2>
+            <div class="game-area">
+                <div class="timer" id="noworker-timer">Time: 60s</div>
+                <div class="problem" id="noworker-problem">Loading...</div>
+                <input type="number" id="noworker-answer" class="answer-input" placeholder="Your answer">
+                <div class="score-board">
+                    <h3>Players Online: <span id="noworker-player-count">0</span></h3>
+                    <div id="noworker-scores" class="player-list">No players yet</div>
+                </div>
+                <div class="status" id="noworker-status"></div>
+            </div>
+            <div class="controls">
+                <button onclick="startNoWorkerGame()">New Game</button>
+                <button onclick="openNewWindow()">Open New Window</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
